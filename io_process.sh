@@ -40,6 +40,15 @@ while IFS= read -r line; do
         # 如果没有读取到值，默认设为 0
         READ_BYTES=${READ_BYTES:-0}
         WRITE_BYTES=${WRITE_BYTES:-0}
+
+        # 确保 READ_BYTES 和 WRITE_BYTES 是有效数字
+        if ! [[ "$READ_BYTES" =~ ^[0-9]+$ ]]; then
+            READ_BYTES=0
+        fi
+        if ! [[ "$WRITE_BYTES" =~ ^[0-9]+$ ]]; then
+            WRITE_BYTES=0
+        fi
+
         TOTAL_IO=$((READ_BYTES + WRITE_BYTES))
 
         # 存储 I/O 信息到数组

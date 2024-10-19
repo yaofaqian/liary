@@ -36,6 +36,10 @@ while IFS= read -r line; do
         # 获取 read_bytes 和 write_bytes
         READ_BYTES=$(echo "$IO_INFO" | grep "read_bytes" | awk '{print $2}')
         WRITE_BYTES=$(echo "$IO_INFO" | grep "write_bytes" | awk '{print $2}')
+
+        # 如果没有读取到值，默认设为 0
+        READ_BYTES=${READ_BYTES:-0}
+        WRITE_BYTES=${WRITE_BYTES:-0}
         TOTAL_IO=$((READ_BYTES + WRITE_BYTES))
 
         # 存储 I/O 信息到数组

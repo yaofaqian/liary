@@ -1,17 +1,17 @@
 #!/bin/bash
 
-# 定义日志文件
-TOP_LOG="top_log.txt"
-IO_LOG="io_log.txt"
+# 定义当前时间
+CURRENT_TIME=$(date "+%Y-%m-%d-%H-%M-%S")
+TOP_LOG="top_log_$CURRENT_TIME.txt"
+IO_LOG="io_log_$CURRENT_TIME.txt"
 
-# 每隔 5 秒获取一次 top 信息，持续 60 秒
-top -b -n 12 -d 5 > "$TOP_LOG"
+# 获取一次 top 信息，持续 1 秒
+top -b -n 1 > "$TOP_LOG"
 
 # 清空 IO 日志文件
 > "$IO_LOG"
 
 # 获取当前时间并格式化
-CURRENT_TIME=$(date "+%Y-%m-%d-%H-%M-%S")
 echo "Log Time: $CURRENT_TIME" >> "$IO_LOG"
 
 # 将 top_log 中的每一行逐行读取

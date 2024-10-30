@@ -1,29 +1,18 @@
-package darwin_template_parse
-func DarwinTemplateParse(filePath string){
-// 定义查找的目录和文件模式
-    dir := "/opt/cli/plan_client"
-    pattern := "darwin_template_*.yaml"
+ root := "/opt/cli" // 要搜索的根目录
+    pattern := "darwin_template" // 文件名前缀
 
-    // 检查目录是否存在
-    if _, err := os.Stat(dir); os.IsNotExist(err) {
-        fmt.Printf("错误：目录 %s 不存在。\n", dir)
-        return
-    }
+    err := filepath.Walk(root, func(path string, info fileInfo, err error) error {
+        if err != nil {
+            return err // 返回错误停止遍历
+        }
+        
+        // 检查是否为文件以及文件名是否匹配
+        if !info.IsDir() && strings.HasPrefix(info.Name(), pattern) && strings.HasSuffix(info.Name(), ".yaml") {
+            fmt.Println(path) // 输出符合条件的文件路径
+        }
+        return nil
+    })
 
-    // 使用 filepath.Glob 查找匹配文件
-    matches, err := filepath.Glob(filepath.Join(dir, pattern))
     if err != nil {
-        fmt.Printf("错误：查找文件时出现问题，原因是 %v\n", err)
-        return
+        fmt.Printf("遍历文件时发生错误：%v\n", err)
     }
-
-    // 检查是否有匹配的文件
-    if len(matches) == 0 {
-        fmt.Println("没有找到符合条件的文件。")
-        return
-    }
-
-    // 提取文件名而非完整路径
-    fileName := matches[0]
-    fmt.Printf("找到第一个符合条件的文件：%s\n", filepath.Base(fileName))
-  }

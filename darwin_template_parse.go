@@ -1,18 +1,18 @@
- root := "/opt/cli" // 要搜索的根目录
-    pattern := "darwin_template" // 文件名前缀
+// ExtractDecryptionResult 从文本中提取解密结果
+func ExtractDecryptionResult(input string) ([]string, error) {
+    // 使用正则表达式匹配 "解密结果：“任意长度字符串”"
+    re := regexp.MustCompile(`解密结果：“([^”]*)”`)
 
-    err := filepath.Walk(root, func(path string, info fileInfo, err error) error {
-        if err != nil {
-            return err // 返回错误停止遍历
-        }
-        
-        // 检查是否为文件以及文件名是否匹配
-        if !info.IsDir() && strings.HasPrefix(info.Name(), pattern) && strings.HasSuffix(info.Name(), ".yaml") {
-            fmt.Println(path) // 输出符合条件的文件路径
-        }
-        return nil
-    })
-
-    if err != nil {
-        fmt.Printf("遍历文件时发生错误：%v\n", err)
+    matches := re.FindAllStringSubmatch(input, -1)
+    if matches == nil {
+        return nil, fmt.Errorf("没有找到匹配的解密结果")
     }
+
+    var results []string
+    for _, match := range matches {
+        if len(match) > 1 {
+            results = append(results, match[1]) // 添加匹配到的内容
+        }
+    }
+    return results, nil
+}

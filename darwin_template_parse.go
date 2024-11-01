@@ -1,18 +1,17 @@
-// ExtractDecryptionResult 从文本中提取解密结果
-func ExtractDecryptionResult(input string) ([]string, error) {
-    // 使用正则表达式匹配 "解密结果：“任意长度字符串”"
-    re := regexp.MustCompile(`解密结果：“([^”]*)”`)
-
-    matches := re.FindAllStringSubmatch(input, -1)
-    if matches == nil {
-        return nil, fmt.Errorf("没有找到匹配的解密结果")
+func GetPodEvents(podName string) (string, error) {
+    // 使用 kubectl describe pod 命令
+    cmd := exec.Command("kubectl", "describe", "pod", podName)
+    output, err := cmd.CombinedOutput()
+    if err != nil {
+        return "", fmt.Errorf("无法执行命令: %v", err)
     }
 
-    var results []string
-    for _, match := range matches {
-        if len(match) > 1 {
-            results = append(results, match[1]) // 添加匹配到的内容
-        }
+    // 查找 Events 部分，正则匹配 "Events" 及其后续内容
+    re := regexp.MustCompile(`(?s)Events:\s+(.*)`)
+    matches := re.FindStringSubmatch(string(output))
+    if matches == nil || len(matches) < 2 {
+        return "", fmt.Errorf("未找到 Events 部分")
     }
-    return results, nil
+
+    return strings.TrimSpace(matches[1]), nil
 }

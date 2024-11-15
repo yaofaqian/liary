@@ -4,69 +4,103 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"strings"
+	"sort"
 	"strconv"
+	"strings"
 )
 
+// 结构体用于保存每个进程的内存信息
+type ProcessMemory struct {
+	command string // 进程名称
+	totalMem int   // 进程总内存（RES - SHR）
+	maxShr   int   // 该进程的最大 SHR 值
+}
+
 func main() {
-	// 打开top.txt文件
+	// 打开文件
 	file, err := os.Open("top.txt")
 	if err != nil {
-		fmt.Println("打开文件出错:", err)
+		fmt.Println("打开文件错误:", err)
 		return
 	}
 	defer file.Close()
 
-	// 初始化变量
-	totalRes := 0
-	commandResMap := make(map[string]int)
+	// 存储每个 COMMAND 的内存信息
+	commandMemMap := make(map[string]*ProcessMemory)
 
-	// 读取文件每一行
+	// 逐行读取文件内容
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		line := scanner.Text()
-
-		// 跳过空行或以#开头的注释行
-		if strings.TrimSpace(line) == "" || strings.HasPrefix(line, "#") {
+		// 按空格分割每一行的字段
+		parts := strings.Fields(line)
+		if len(parts) < 3 {
 			continue
 		}
 
-		// 分割行数据，假设列之间是空格
-		fields := strings.Fields(line)
+		// 解析 RES、SHR 和 COMMAND
+		resStr := parts[0]
+		shrStr := parts[1]
+		command := parts[2]
 
-		// 假设RES在第二列，COMMAND在最后一列
-		if len(fields) < 2 {
-			continue // 确保至少有两列数据
-		}
-
-		// 解析RES列（假设为数字）
-		res, err := strconv.Atoi(fields[0]) // RES列在第0列，调整为实际位置
+		// 将 RES 和 SHR 转换为整数
+		res, err := strconv.Atoi(resStr)
 		if err != nil {
-			fmt.Println("解析RES出错:", err)
+			fmt.Println("解析 RES 错误:", err)
+			continue
+		}
+		shr, err := strconv.Atoi(shrStr)
+		if err != nil {
+			fmt.Println("解析 SHR 错误:", err)
 			continue
 		}
 
-		// 解析COMMAND列（假设为最后一列）
-		command := fields[len(fields)-1]
+		// 计算内存值（RES - SHR）
+		memValue := res - shr
 
-		// 累加总RES
-		totalRes += res
-
-		// 累加每个COMMAND对应的RES
-		commandResMap[command] += res
+		// 更新 commandMemMap
+		if _, exists := commandMemMap[command]; !exists {
+			commandMemMap[command] = &ProcessMemory{
+				command:  command,
+				totalMem: memValue,
+				maxShr:   shr,
+			}
+		} else {
+			// 累加内存值
+			commandMemMap[command].totalMem += memValue
+			// 更新最大 SHR 值
+			if shr > commandMemMap[command].maxShr {
+				commandMemMap[command].maxShr = shr
+			}
+		}
 	}
 
-	// 输出结果
-	if err := scanner.Err(); err != nil {
-		fmt.Println("读取文件时出错:", err)
-		return
+	// 创建一个切片存储按内存值排序后的进程信息
+	var sortedMemList []ProcessMemory
+
+	// 将 map 转换为切片
+	for _, mem := range commandMemMap {
+		// 计算每个 COMMAND 的最终内存值（包括最大 SHR）
+		mem.totalMem += mem.maxShr
+		sortedMemList = append(sortedMemList, *mem)
 	}
 
-	// 输出总RES值
-	fmt.Printf("总RES值：%d\n", totalRes)
+	// 按内存值从大到小排序
+	sort.Slice(sortedMemList, func(i, j int) bool {
+		return sortedMemList[i].totalMem > sortedMemList[j].totalMem
+	})
 
-	// 输出每个COMMAND对应的RES值
-	for command, res := range commandResMap {
-		fmt.Printf("%sRES值：%d\n", command, res)
+	// 计算总内存值
+	var totalMem int
+	for _, mem := range sortedMemList {
+		totalMem += mem.totalMem
+	}
+
+	// 输出总内存值
+	fmt.Printf("总内存值：%d\n", totalMem)
+
+	// 输出按内存值排序后的每个进程内存值
+	for _, mem := range sortedMemList {
+		fmt.Printf("%s 内存值：%d\n", mem.command, mem.totalMem)
 	}
 }

@@ -1,0 +1,72 @@
+package main
+
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strings"
+	"strconv"
+)
+
+func main() {
+	// 打开top.txt文件
+	file, err := os.Open("top.txt")
+	if err != nil {
+		fmt.Println("打开文件出错:", err)
+		return
+	}
+	defer file.Close()
+
+	// 初始化变量
+	totalRes := 0
+	commandResMap := make(map[string]int)
+
+	// 读取文件每一行
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		line := scanner.Text()
+
+		// 跳过空行或以#开头的注释行
+		if strings.TrimSpace(line) == "" || strings.HasPrefix(line, "#") {
+			continue
+		}
+
+		// 分割行数据，假设列之间是空格
+		fields := strings.Fields(line)
+
+		// 假设RES在第二列，COMMAND在最后一列
+		if len(fields) < 2 {
+			continue // 确保至少有两列数据
+		}
+
+		// 解析RES列（假设为数字）
+		res, err := strconv.Atoi(fields[0]) // RES列在第0列，调整为实际位置
+		if err != nil {
+			fmt.Println("解析RES出错:", err)
+			continue
+		}
+
+		// 解析COMMAND列（假设为最后一列）
+		command := fields[len(fields)-1]
+
+		// 累加总RES
+		totalRes += res
+
+		// 累加每个COMMAND对应的RES
+		commandResMap[command] += res
+	}
+
+	// 输出结果
+	if err := scanner.Err(); err != nil {
+		fmt.Println("读取文件时出错:", err)
+		return
+	}
+
+	// 输出总RES值
+	fmt.Printf("总RES值：%d\n", totalRes)
+
+	// 输出每个COMMAND对应的RES值
+	for command, res := range commandResMap {
+		fmt.Printf("%sRES值：%d\n", command, res)
+	}
+}

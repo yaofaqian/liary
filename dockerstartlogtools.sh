@@ -16,7 +16,7 @@ fi
 mkdir -p "$output_dir"
 
 # 获取所有容器ID
-container_ids=$(docker ps -q)
+container_ids=$(docker ps -q | grep -n 30)
 
 # 检查是否有容器运行
 if [ -z "$container_ids" ]; then

@@ -1,0 +1,11 @@
+2024-12-10 14:10:14.291 CST,,,4024,,6757db46.fb8,1,,2024-12-10 14:10:14 CST,,0,LOG,00000,"ending log output to stderr",,"Future log output will go to log destination ""csvlog"".",,,,,,,""
+
+2024-12-10 14:10:14.321 CST,,,1816,,6757db46.718,1,,2024-12-10 14:10:14 CST,,0,LOG,00000,"database system was shut down at 2024-12-09 14:47:03 CST",,,,,,,,,""
+
+2024-12-10 14:10:14.324 CST,,,1816,,6757db46.718,2,,2024-12-10 14:10:14 CST,,0,PANIC,XX000,"replication checkpoint has wrong magic 0 instead of 307747550",,,,,,,,,""
+
+2024-12-10 14:10:14.343 CST,,,4024,,6757db46.fb8,2,,2024-12-10 14:10:14 CST,,0,LOG,00000,"startup process (PID 1816) was terminated by exception 0xC0000409",,"See C include file ""ntstatus.h"" for a description of the hexadecimal value.",,,,,,,""
+
+2024-12-10 14:10:14.344 CST,,,4024,,6757db46.fb8,3,,2024-12-10 14:10:14 CST,,0,LOG,00000,"aborting startup due to startup process failure",,,,,,,,,""
+
+2024-12-10 14:10:14.350 CST,,,4024,,6757db46.fb8,4,,2024-12-10 14:10:14 CST,,0,LOG,00000,"database system is shut down",,,,,,,,,""

@@ -1,0 +1,48 @@
+Dec 21 00:00:01 ecs-360tq-0010 systemd[1]: Started User Manager for UID 978.
+Dec 21 00:00:01 ecs-360tq-0010 systemd[3824963]: Starting D-Bus User Message Bus Socket.
+Dec 21 00:00:01 ecs-360tq-0010 systemd[3824954]: Started Mark boot as successful after the user session has run 2 minutes.
+Dec 21 00:00:01 ecs-360tq-0010 systemd[3824954]: Reached target Paths.
+Dec 21 00:00:01 ecs-360tq-0010 systemd[3824954]: Reached target Timers.
+Dec 21 00:00:01 ecs-360tq-0010 systemd[3824954]: Starting D-Bus User Message Bus Socket.
+Dec 21 00:00:01 ecs-360tq-0010 systemd[1]: Started Session 756623 of user bigmanager.
+Dec 21 00:00:01 ecs-360tq-0010 systemd[1]: Started Session 756625 of user bigmanager.
+Dec 21 00:00:01 ecs-360tq-0010 systemd[3824963]: Listening on D-Bus User Message Bus Socket.
+Dec 21 00:00:01 ecs-360tq-0010 systemd[3824963]: Reached target Sockets.
+Dec 21 00:00:01 ecs-360tq-0010 systemd[3824963]: Reached target Basic System.
+Dec 21 00:00:01 ecs-360tq-0010 systemd[3824963]: Reached target Main User Target.
+Dec 21 00:00:01 ecs-360tq-0010 systemd[3824963]: Startup finished in 53ms.
+Dec 21 00:00:01 ecs-360tq-0010 systemd[1]: Started User Manager for UID 979.
+Dec 21 00:00:01 ecs-360tq-0010 systemd[1]: Started Session 756621 of user bsafe.
+Dec 21 00:00:01 ecs-360tq-0010 systemd[3824954]: Listening on D-Bus User Message Bus Socket.
+Dec 21 00:00:01 ecs-360tq-0010 systemd[3824954]: Reached target Sockets.
+Dec 21 00:00:01 ecs-360tq-0010 systemd[3824954]: Reached target Basic System.
+Dec 21 00:00:01 ecs-360tq-0010 systemd[3824954]: Reached target Main User Target.
+Dec 21 00:00:01 ecs-360tq-0010 systemd[3824954]: Startup finished in 62ms.
+Dec 21 00:00:01 ecs-360tq-0010 systemd[1]: Started User Manager for UID 1012.
+Dec 21 00:00:01 ecs-360tq-0010 systemd[1]: Started Session 756622 of user clickhouse.
+Dec 21 00:00:01 ecs-360tq-0010 systemd[1]: Started Session 756627 of user clickhouse.
+Dec 21 00:00:01 ecs-360tq-0010 systemd[1]: session-756621.scope: Succeeded.
+Dec 21 00:00:01 ecs-360tq-0010 systemd[1]: session-756622.scope: Succeeded.
+Dec 21 00:00:01 ecs-360tq-0010 systemd[1]: session-756623.scope: Succeeded.
+Dec 21 00:00:01 ecs-360tq-0010 systemd[1]: session-756627.scope: Succeeded.
+Dec 21 00:00:02 ecs-360tq-0010 systemd[1]: session-756625.scope: Succeeded.
+Dec 21 00:00:02 ecs-360tq-0010 systemd[1]: session-756626.scope: Succeeded.
+Dec 21 00:00:06 ecs-360tq-0010 kafka_exporter[3506239]: time="2024-12-21T00:00:06+08:00" level=info msg="Refreshing client metadata" source="kafka_exporter.go:255"
+Dec 21 00:00:07 ecs-360tq-0010 systemd[1]: session-756628.scope: Succeeded.
+Dec 21 00:00:07 ecs-360tq-0010 kernel: [8062152.073882] kauditd_printk_skb: 65 callbacks suppressed
+Dec 21 00:00:07 ecs-360tq-0010 kernel: [8062152.073884] audit: type=1104 audit(1734710407.528:6634395): pid=3824928 uid=0 auid=0 ses=756628 msg='op=PAM:setcred grantors=pam_kysec,pam_env,pam_faillock,pam_unix acct="root" exe="/usr/sbin/crond" hostname=? addr=? terminal=cron res=success'
+Dec 21 00:00:07 ecs-360tq-0010 kernel: [8062152.075016] audit: type=1106 audit(1734710407.528:6634396): pid=3824928 uid=0 auid=0 ses=756628 msg='op=PAM:session_close grantors=pam_loginuid,pam_keyinit,pam_limits,pam_systemd acct="root" exe="/usr/sbin/crond" hostname=? addr=? terminal=cron res=success'
+Dec 21 00:00:08 ecs-360tq-0010 kafka_exporter[3506239]: time="2024-12-21T00:00:08+08:00" level=error msg="Cannot get GetMemberAssignment of group member &{sr-1 /172.18.4.30 [123 34 104 111 115 116 34 58 34 101 99 115 45 51 54 48 116 113 45 48 48 49 50 34 44 34 112 111 114 116 34 58 57 49 48 51 44 34 109 97 115 116 101 114 95 101 108 105 103 105 98 105 108 105 116 121 34 58 116 114 117 101 44 34 115 99 104 101 109 101 34 58 34 104 116 116 112 34 44 34 118 101 114 115 105 111 110 34 58 49 125] [123 34 101 114 114 111 114 34 58 48 44 34 109 97 115 116 101 114 34 58 34 115 114 45 49 45 48 50 50 48 100 100 52 50 45 102 53 49 50 45 52 97 97 51 45 98 57 100 100 45 50 48 101 48 102 101 57 101 50 48 100 53 34 44 34 109 97 115 116 101 114 95 105 100 101 110 116 105 116 121 34 58 123 34 104 111 115 116 34 58 34 101 99 115 45 51 54 48 116 113 45 48 48 49 49 34 44 34 112 111 114 116 34 58 57 49 48 51 44 34 109 97 115 116 101 114 95 101 108 105 103 105 98 105 108 105 116 121 34 58 116 114 117 101 44 34 115 99 104 101 109 101 34 58 34 104 116 116 112 34 44 34 118 101 114 115 105 111 110 34 58 49 125 44 34 118 101 114 115 105 111 110 34 58 49 125]} : kafka: insufficient data to decode packet, more bytes expected" source="kafka_exporter.go:413"
+Dec 21 00:00:11 ecs-360tq-0010 systemd[1]: Stopping User Manager for UID 979...
+Dec 21 00:00:11 ecs-360tq-0010 systemd[3824963]: Stopped target Main User Target.
+Dec 21 00:00:11 ecs-360tq-0010 systemd[3824963]: Stopped target Basic System.
+Dec 21 00:00:11 ecs-360tq-0010 systemd[3824963]: Stopped target Paths.
+Dec 21 00:00:11 ecs-360tq-0010 systemd[3824963]: Stopped target Sockets.
+Dec 21 00:00:11 ecs-360tq-0010 systemd[3824963]: Stopped target Timers.
+Dec 21 00:00:11 ecs-360tq-0010 systemd[3824963]: dbus.socket: Succeeded.
+Dec 21 00:00:11 ecs-360tq-0010 systemd[3824963]: Closed D-Bus User Message Bus Socket.
+Dec 21 00:00:11 ecs-360tq-0010 systemd[3824963]: Reached target Shutdown.
+Dec 21 00:00:11 ecs-360tq-0010 systemd[3824963]: systemd-exit.service: Succeeded.
+Dec 21 00:00:11 ecs-360tq-0010 systemd[3824963]: Started Exit the Session.
+Dec 21 00:00:11 ecs-360tq-0010 systemd[3824963]: Reached target Exit the Session.
+Dec 21 00:00:11 ecs-360tq-0010 kernel: [8062156.277383] audit: type=1131 audit(1734710411.728:6634397): pid=1 uid=0 auid=4294967295 ses=4294967295 msg='unit=user@979 comm="systemd" exe="/usr/lib/systemd/systemd" hostname=? addr=? terminal=? res=success'

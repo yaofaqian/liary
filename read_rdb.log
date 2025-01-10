@@ -1,0 +1,4 @@
+# read_rdb
+.\main.go:42:25: cannot use decoder (variable of type *CustomDecoder) as rdb.Decoder value in argument to rdb.Decode: *CustomDecoder does not implement rdb.Decoder (wrong type for method Sadd)
+                have Sadd([]byte, []byte) error
+                want Sadd([]byte, []byte)

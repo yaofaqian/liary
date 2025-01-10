@@ -73,65 +73,56 @@ type CustomDecoder struct {
 }
 
 // Set 处理每个键
-func (d *CustomDecoder) Set(key, value []byte, expiry int64) error {
+func (d *CustomDecoder) Set(key, value []byte, expiry int64) {
 	size := int64(len(value))
 	d.bigKeys[string(key)] = size
 	*d.totalSize += size
-	return nil
 }
 
 // StartHash 处理哈希键
-func (d *CustomDecoder) StartHash(key []byte, length, expiry int64) error {
+func (d *CustomDecoder) StartHash(key []byte, length, expiry int64) {
 	d.bigKeys[string(key)] = 0 // 初始大小
-	return nil
 }
 
 // HSet 哈希字段
-func (d *CustomDecoder) HSet(key, field, value []byte) error {
+func (d *CustomDecoder) HSet(key, field, value []byte) {
 	size := int64(len(field) + len(value))
 	d.bigKeys[string(key)] += size
 	*d.totalSize += size
-	return nil
 }
 
 // StartSet 处理集合键
-func (d *CustomDecoder) StartSet(key []byte, cardinality, expiry int64) error {
+func (d *CustomDecoder) StartSet(key []byte, cardinality, expiry int64) {
 	d.bigKeys[string(key)] = 0
-	return nil
 }
 
 // Sadd 集合成员
-func (d *CustomDecoder) Sadd(key, member []byte) error {
+func (d *CustomDecoder) Sadd(key, member []byte) {
 	size := int64(len(member))
 	d.bigKeys[string(key)] += size
 	*d.totalSize += size
-	return nil
 }
 
 // StartList 处理列表键
-func (d *CustomDecoder) StartList(key []byte, length, expiry int64) error {
+func (d *CustomDecoder) StartList(key []byte, length, expiry int64) {
 	d.bigKeys[string(key)] = 0
-	return nil
 }
 
 // RPush 列表成员
-func (d *CustomDecoder) RPush(key, value []byte) error {
+func (d *CustomDecoder) RPush(key, value []byte) {
 	size := int64(len(value))
 	d.bigKeys[string(key)] += size
 	*d.totalSize += size
-	return nil
 }
 
 // StartZSet 处理有序集合键
-func (d *CustomDecoder) StartZSet(key []byte, cardinality, expiry int64) error {
+func (d *CustomDecoder) StartZSet(key []byte, cardinality, expiry int64) {
 	d.bigKeys[string(key)] = 0
-	return nil
 }
 
 // ZAdd 有序集合成员
-func (d *CustomDecoder) ZAdd(key []byte, score float64, member []byte) error {
+func (d *CustomDecoder) ZAdd(key []byte, score float64, member []byte) {
 	size := int64(len(member))
 	d.bigKeys[string(key)] += size
 	*d.totalSize += size
-	return nil
 }

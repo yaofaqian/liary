@@ -11,9 +11,9 @@ import (
 
 // KeyInfo 保存键的信息
 type KeyInfo struct {
-	Key      string
-	Size     int64
-	Percent  float64
+	Key     string
+	Size    int64
+	Percent float64
 }
 
 // main 函数
@@ -36,7 +36,7 @@ func main() {
 	totalSize := int64(0)
 
 	decoder := &CustomDecoder{
-		bigKeys:  bigKeys,
+		bigKeys:   bigKeys,
 		totalSize: &totalSize,
 	}
 	err = rdb.Decode(file, decoder)
@@ -73,7 +73,7 @@ type CustomDecoder struct {
 }
 
 // Set 处理每个键
-func (d *CustomDecoder) Set(key []byte, value []byte, expiry int64) error {
+func (d *CustomDecoder) Set(key, value []byte, expiry int64) error {
 	size := int64(len(value))
 	d.bigKeys[string(key)] = size
 	*d.totalSize += size
